@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件使用中的细节</title>
+    <script src='./vue.js'></script>
+</head>
+    <body>
+
+        <div id="app">
+            <table>
+                <tbody>
+                    <!-- 
+                        is 属性，虽然这里是tr标签，但是会去应用模板
+                        因为 tbody标签下只能使用<tr>,如果直接写<row></row> 会出现bug，
+                            即会发现<row> 模板中的内容在 table 平级位置上。
+
+                        还是很多标签都会存在这种问题，即某个标签下只能使用固定标签，又需要引用组件时。
+                        可以使用is 属性
+    
+
+
+                     -->
+                    <tr is="row"></tr>
+                    <tr is="row"></tr>
+                </tbody>
+                <!-- ref的使用，当在普通标签使用，this.$refs.ref 表示当前dom
+                如果在组件中使用，则表示当前组件，可以通过这个去调用组件中的方法、参数 -->
+                <div ref='hello' @click="click">hello world </div>
+            </table>
+            
+
+        </div>
+        
+
+
+        <script>
+
+            Vue.component("row", {
+                template: "<tr><td>aaa</td></tr>"
+            })
+
+
+            var app = new Vue({
+                el: '#app',
+                methods: {
+                    click: function() {
+                        // 获取dom
+                        alter(this.$refs.hello)
+                    }
+
+                }
+        
+            })
+
+            /*
+            jq: m-模型层(接口交互))、v-视图层(html)、p-控制器(js代码)  mvp模式
+            
+            vue: m-(vue代码) v-(html) vm-(vue就是一个vm层，自动实现)) 即 mv vm模式
+
+            vue减少了dom的操作，可以减少代码量，编程的时候只关注数据层就好了
+
+
+
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            
+            */
+
+        </script>
+    </body>
+
+</html>

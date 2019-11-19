@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue实例生命周期函数</title>
+    <script src='./vue.js'></script>
+</head>
+    <body>
+
+        <div id="app">
+            {{content}}        
+        </div>
+        
+
+
+        <script>
+
+            // 生命周期函数就是vue实例在某个时间点进行执行的函数
+            // 可分为初始化前后 、页面渲染前后、数据修改前后、页面销毁前后，都有对应的函数
+            var app = new Vue({
+                el: '#app',
+                beforeCreate: function() { // 这只是其中一个生命周期函数，具体可以参看官方文档
+                    console.log("beforeCreate");
+                }
+
+            })
+
+            /*
+            jq: m-模型层(接口交互))、v-视图层(html)、p-控制器(js代码)  mvp模式
+            
+            vue: m-(vue代码) v-(html) vm-(vue就是一个vm层，自动实现)) 即 mv vm模式
+
+            vue减少了dom的操作，可以减少代码量，编程的时候只关注数据层就好了
+
+
+
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            
+            */
+
+        </script>
+    </body>
+
+</html>

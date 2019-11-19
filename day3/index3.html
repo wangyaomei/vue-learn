@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件参数校验与非Props特性</title>
+    <script src='./vue.js'></script>
+</head>
+    <body>
+
+        <div id="app">
+                   <!-- 非Props特性，子组件没有接收参数，有个特点，count="1"会作为子组件的属性展示出来 -->
+                <!-- 父传子--属性传值 count="1" 表示sting :count="1" 表示对象-->
+                <counter count="1" ></counter>
+        </div>
+        
+
+
+        <script>
+
+            var counter = {
+                props: {
+                    // 表示，父传值的时候，必须是指定的数据类型
+                    count: String,
+                    num: Number,
+                    title: [Number, String],
+                    user: {
+                        type: String,
+                        required: false,
+                        default: 'default-user',
+                        validatro: function(value) {
+                            // 父传的参数 长度要大于5，才能行，否则会报错
+                            return (value.length > 5)
+                        }
+                    },
+                    params:{
+                        type: Object,
+                        default: () => {
+                            return {};
+                        }
+                    },
+                },
+                
+                template: '<div>{{count}}</div>',
+                methods: {
+                    
+                }
+            }
+
+
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    total: 2
+                },
+                components: {
+                    counter: counter
+                },
+                methods: {
+                    handlerChange: function(step) {
+                        //alert(step)
+                         this.total += step
+                    }
+                }
+        
+            })
+
+            /*
+            jq: m-模型层(接口交互))、v-视图层(html)、p-控制器(js代码)  mvp模式
+            
+            vue: m-(vue代码) v-(html) vm-(vue就是一个vm层，自动实现)) 即 mv vm模式
+
+            vue减少了dom的操作，可以减少代码量，编程的时候只关注数据层就好了
+
+
+
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            
+            */
+
+        </script>
+    </body>
+
+</html>

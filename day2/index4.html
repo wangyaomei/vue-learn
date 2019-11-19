@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中的样式绑定</title>
+    <script src='./vue.js'></script>
+    <style>
+        .activated {
+            color: red;
+        }
+    </style>
+</head>
+    <body>
+        <!-- 
+            当点击文字的时候，改变其样式
+            1、 :class,绑定一个class，用对象的方式，去改变isShow既可 :class="{activated: isShow}"
+            2、 :class="[activated]"，使用数组的方式，activated是其一个元素，通过去改变activated属性的值，来达到目的，如果有多个，互补
+            3、 :style="myStyle", 这里myStyle属性定义为一个对象，然后去定义样式，改变也是一样的，去改它就行
+            4、 :style= [myStyle], 使用数组的方式,这里myStyle是数组中的一个元素，规则一样
+
+
+
+         -->
+        <div id="app" :class="{activated: isShow}" @click="handleDivClick">
+           hello world
+        </div>
+        
+
+
+        <script>
+
+    
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    isShow: true
+                },
+                methods: {
+                    handleDivClick: function() {
+                        this.isShow = !this.isShow;
+                    }
+                }
+            })
+
+            /*
+            jq: m-模型层(接口交互))、v-视图层(html)、p-控制器(js代码)  mvp模式
+            
+            vue: m-(vue代码) v-(html) vm-(vue就是一个vm层，自动实现)) 即 mv vm模式
+
+            vue减少了dom的操作，可以减少代码量，编程的时候只关注数据层就好了
+
+
+
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            v-bind 属性绑定（单向） 可用:代替
+            
+            */
+
+        </script>
+    </body>
+
+</html>

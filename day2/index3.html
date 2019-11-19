@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性的setter和getter</title>
+    <script src='./vue.js'></script>
+</head>
+    <body>
+
+        <div id="app">
+            {{fullName}}  
+            {{age}}      
+        </div>
+        
+
+
+        <script>
+
+    
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    firstName: "Dell",
+                    lastName: "Lee",
+                    age: "22"
+
+                },
+                
+                computed: { // 计算属性,性能较好，有一个缓存，如果依赖的变量发生了改变，才会再次计算(age改变，他不会计算)。并且代码简洁，建议使用
+                    fullName: {
+                        get: function() { // 只是写法一样
+                            console.log("计算了一次");
+                            return this.firstName + " " + this.lastName; 
+                        },
+                        set: function(value) { // 对计算属性进行赋值，通过这个值，去改变firstName的值
+                            var arr = value.split(" ");
+                            this.firstName = arr[0];
+                            this.lastName = arr[1];
+                        }
+                    }
+                }
+
+            })
+
+            /*
+            jq: m-模型层(接口交互))、v-视图层(html)、p-控制器(js代码)  mvp模式
+            
+            vue: m-(vue代码) v-(html) vm-(vue就是一个vm层，自动实现)) 即 mv vm模式
+
+            vue减少了dom的操作，可以减少代码量，编程的时候只关注数据层就好了
+
+
+
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            
+            */
+
+        </script>
+    </body>
+
+</html>

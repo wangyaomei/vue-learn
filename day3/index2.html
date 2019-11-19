@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父子组件传值的方法</title>
+    <script src='./vue.js'></script>
+</head>
+    <body>
+
+        <div id="app">
+                   
+                <!-- 父传子--属性传值 -->
+                <counter :count="1" @change="handlerChange"></counter>
+               <counter :count="1" @change="handlerChange"></counter>
+               <div>{{total}}</div>
+        </div>
+        
+
+
+        <script>
+
+            var counter = {
+                props: ['count'],
+                data: function() {
+                    return {
+                        number: this.count
+                    }
+                },
+                template: '<div @click="handlerClick">{{number}}</div>',
+                methods: {
+                    handlerClick: function() {
+                        // 子组件不能修改父组件传递过来的值,可以选择先克隆
+                        // this.count ++
+                        this.number ++
+                        // 子传父-通过触发事件的方式, 可以携带参数
+                        this.$emit('change', 1)
+
+                    }
+                }
+            }
+
+
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    total: 2
+                },
+                components: {
+                    counter: counter
+                },
+                methods: {
+                    handlerChange: function(step) {
+                        //alert(step)
+                         this.total += step
+                    }
+                }
+        
+            })
+
+            /*
+            jq: m-模型层(接口交互))、v-视图层(html)、p-控制器(js代码)  mvp模式
+            
+            vue: m-(vue代码) v-(html) vm-(vue就是一个vm层，自动实现)) 即 mv vm模式
+
+            vue减少了dom的操作，可以减少代码量，编程的时候只关注数据层就好了
+
+
+
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            
+            */
+
+        </script>
+    </body>
+
+</html>

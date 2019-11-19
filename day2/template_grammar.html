@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板语法</title>
+    <script src='./vue.js'></script>
+</head>
+    <body>
+
+        <div id="app">
+                {{content}} 
+            <!-- {{content}}  插值表达式        -->
+            <div v-text="content"></div>
+            <!-- v-html 和 v-text 的区别：如果conten是标签的时候，v-html会解析出来，v-text不会 
+                里面都可以加入其它字符，如：{{content + '11'}} 
+            -->
+            <div v-html="content"></div>  
+        </div>
+        
+
+
+        <script>
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    content: '<h1>Dell</h1>'
+                }
+
+            })
+
+            /*
+            jq: m-模型层(接口交互))、v-视图层(html)、p-控制器(js代码)  mvp模式
+            
+            vue: m-(vue代码) v-(html) vm-(vue就是一个vm层，自动实现)) 即 mv vm模式
+
+            vue减少了dom的操作，可以减少代码量，编程的时候只关注数据层就好了
+
+
+
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            v-text 等于 {{content}}  插值表达式
+            
+            */
+
+        </script>
+    </body>
+
+</html>

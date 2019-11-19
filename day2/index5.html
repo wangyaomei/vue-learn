@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中的条件渲染</title>
+    <script src='./vue.js'></script>
+</head>
+    <body>
+       
+        <div id="app">
+            <!-- v-show 是一个显示 和 隐藏的dom过程
+                v-if 是创建和删除的dom过程
+                所以v-show 性能更好 -->
+                <!-- 这里有个注意点，v-if v-else 会有一个复用机制，如果这两个input标签无任何区别，则会复用，这边建议定义一个key属性，值不一样既可 -->
+            <div v-if="isShow"> hello world <input/> </div>
+            <div v-else="isShow"> hello world <input/> </div>
+
+
+            <div v-show="isShow"> hello world</div>
+        </div>
+        
+
+
+        <script>
+
+    
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    isShow: true
+                }
+            })
+
+            /*
+            jq: m-模型层(接口交互))、v-视图层(html)、p-控制器(js代码)  mvp模式
+            
+            vue: m-(vue代码) v-(html) vm-(vue就是一个vm层，自动实现)) 即 mv vm模式
+
+            vue减少了dom的操作，可以减少代码量，编程的时候只关注数据层就好了
+
+
+
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            v-bind 属性绑定（单向） 可用:代替
+            v-if 判断是否显示,内容是vm中的数据，可以是表达式：isShow === 'a'
+            v-else-if 配合使用，中间不能有其他类型标签
+             v-else 配合使用，中间不能有其他类型标签
+            */
+
+        </script>
+    </body>
+
+</html>

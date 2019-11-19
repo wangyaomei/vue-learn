@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+    <script src='./vue.js'></script>
+</head>
+    <body>
+
+        <div id="app">
+            <div>
+                <input type="text" v-model="content"/> 
+                <button v-on:click="handlerButClick">提交</button>
+            </div>
+            <div>
+                <ul>
+                    <!-- 把<li> 定义为一个组件  -->
+                    <!-- <li v-for="item in list">{{item}}</li> -->
+                    <!-- v-bind:content="item" 单向绑定，把item赋值 给 组件中的content值  -->
+                    <todo-item v-bind:content="item"  :index = "index" v-for="(item, index) in list" @delete="handlerItemDelete"></todo-item>
+                </ul>
+            </div>
+            
+        </div>
+
+        <script>
+            // 功能要求，当点击li的时候，要把他删掉，因为li在子组件中，这就涉及到一个知识点，子组件如何对父组件传值
+
+            // 局部组件,局部组件要注册进 vue中的components中
+            var TodoItem = {
+                props: ['content', 'index'], // 外部组件会对这个进行赋值，在内部组件直接使用它就行, v-bind:content="item",content 要和这里的content相等
+                template: "<li @click='handlerDeleteClick'>{{content}}</li>", // 在这里绑定一个事件
+                methods: {
+                    handlerDeleteClick : function() {
+                        this.$emit("delete", this.index); // 向上触发delete事件，给需要触发的时间传值，值为index，即完成了子组件向父组件传值。
+                    }
+
+                }
+            }
+            var app = new Vue({
+                el: '#app',
+                components: {
+                    TodoItem: TodoItem // 把局部组件注入进来，名为TodoItem 的局部组件从新命名为 TodoItem，这里保持一致
+                },
+                data: {
+                    list: [],
+                    content: ''
+                },
+                methods: {
+                    handlerButClick: function() {
+                        this.list.push(this.content);
+                        this.content='';
+                    },
+                    handlerItemDelete: function(index) {
+                        this.list.splice(index, 1); // 删除数组中，指定下标的元素
+                    }
+                }
+
+            })
+
+            /*
+          
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+
+            v-bind 属性绑定（单向） 可用:代替
+            
+            */
+
+        </script>
+    </body>
+
+</html>

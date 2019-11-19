@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>给组件绑定原生事件</title>
+    <script src='./vue.js'></script>
+</head>
+    <body>
+
+        <div id="app">
+                <!-- 
+                    在普通标签里面的事件即是原生事件
+                    如果在使用组件时，去定义的事件，是自定义事件，要在组价里面去触发,
+                    如果确实有这样的需求，可以@click.native="handlerChange"，加.native既可
+
+
+                 -->
+                 <counter count="1" @click.native="handlerChange"></counter>
+
+                <counter count="1" @click="handlerChange"></counter>
+        </div>
+        
+
+
+        <script>
+
+            var counter = {
+                props: {
+                    // 表示，父传值的时候，必须是指定的数据类型
+                    count: String,
+                },
+                
+                template: '<div @click="handlerClick">{{count}}</div>',
+                methods: {
+                    handlerClick: function() {
+                        this.$emit('click')
+                    }
+                }
+            }
+
+
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    total: 2
+                },
+                components: {
+                    counter: counter
+                },
+                methods: {
+                    handlerChange: function() {
+                        alert('handlerChange')
+                    }
+                }
+        
+            })
+
+            /*
+            jq: m-模型层(接口交互))、v-视图层(html)、p-控制器(js代码)  mvp模式
+            
+            vue: m-(vue代码) v-(html) vm-(vue就是一个vm层，自动实现)) 即 mv vm模式
+
+            vue减少了dom的操作，可以减少代码量，编程的时候只关注数据层就好了
+
+
+
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            
+            */
+
+        </script>
+    </body>
+
+</html>

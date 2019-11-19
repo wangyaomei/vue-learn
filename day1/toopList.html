@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+    <script src='./vue.js'></script>
+</head>
+    <body>
+
+        <div id="app">
+            <div>
+                <input type="text" v-model="content"/> 
+                <button v-on:click="handlerButClick">提交</button>
+            </div>
+            <div>
+                <ul>
+                    <li v-for="item in list">{{item}}</li>
+                </ul>
+            </div>
+            
+        </div>
+
+        <script>
+       
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    list: [],
+                    content: ''
+                },
+                methods: {
+                    handlerButClick: function() {
+                        this.list.push(this.content);
+                        this.content='';
+                    }
+                }
+
+            })
+
+            /*
+          
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            
+            */
+
+        </script>
+    </body>
+
+</html>
