@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>非父子组件传值</title>
+    <script src='./vue.js'></script>
+</head>
+    <body>
+
+        <div id="app">
+               
+                 <counter count="1"></counter>
+
+                <counter count="2"></counter>
+        </div>
+        
+
+
+        <script>
+            // 非父子组件之间的传值，可以理解为每个组件都有一个共同的属性bus（全局属性），我们用bus定义传递一个change事件，
+            // 然后每个组件都在监听change事件。
+            Vue.prototype.bus = new Vue();
+            var counter = {
+                data: function() {
+                    return {
+                        selfCount: this.count
+                    }
+                },
+                props: {
+                    // 表示，父传值的时候，必须是指定的数据类型
+                    count: String,
+                },
+                
+                template: '<div @click="handleClick">{{selfCount}}</div>',
+                methods: {
+                    handleClick: function() {
+                        var this_ = this;
+                        //this_.selfCount = 444;
+                        this.bus.$emit('change', this.selfCount);
+                    }
+                
+                },
+                mounted: function() {
+                    var this_ = this; // this作用域的问题，
+                    this.bus.$on('change', function(msg) {
+                        this_.selfCount = msg; // 改变这个副本，即可改变这个本来的值,他们指向的路径都是一样的。
+                        // 如果在这里直接用this，这个this可能就是点击的那个组件的this，并不是当前组件的this。
+                    })
+                }
+            }
+
+
+            var vm = new Vue({
+                el: '#app',
+                components: {
+                    counter: counter
+                },
+                methods: {
+                    handlerChange: function() {
+                        alert('handlerChange')
+                    }
+                }
+        
+            })
+
+            /*
+            jq: m-模型层(接口交互))、v-视图层(html)、p-控制器(js代码)  mvp模式
+            
+            vue: m-(vue代码) v-(html) vm-(vue就是一个vm层，自动实现)) 即 mv vm模式
+
+            vue减少了dom的操作，可以减少代码量，编程的时候只关注数据层就好了
+
+
+
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            
+            */
+
+        </script>
+    </body>
+
+</html>

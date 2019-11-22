@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue中js动画与Velocity.js/title>
+    <script src='./vue.js'></script>
+    <script src='./velocity.js'></script>
+    <link rel="stylesheet" type="text/css" href="./animate.css">
+   
+</head>
+    <body>
+       
+        <div id="app">
+            <!--
+                 Velocity.js http://www.velocityjs.org/
+                @before-enter="handlerbefore"  事件-显示之前
+                handlerbefore： function(el) {}  el 表示<div v-if="show">hello workd</div>
+                
+
+                <transition-group> 列表过度，即每列就为 <transition name="fade">
+                                                                    <div v-if="show">hello workd</div>
+                                                      </transition>
+           
+              
+        </div>
+            -->
+            <transition name="fade">
+                <div v-if="show">hello workd</div>
+            </transition>
+            
+            <button @click="click">切换</button>
+              
+        </div>
+        
+
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    show : true
+                },
+                methods: {
+                    click: function() {
+                        this.show = !this.show;
+                    }
+
+                }
+        
+            })
+
+            /*
+            jq: m-模型层(接口交互))、v-视图层(html)、p-控制器(js代码)  mvp模式
+            
+            vue: m-(vue代码) v-(html) vm-(vue就是一个vm层，自动实现)) 即 mv vm模式
+
+            vue减少了dom的操作，可以减少代码量，编程的时候只关注数据层就好了
+
+
+
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            
+            */
+
+        </script>
+    </body>
+
+</html>

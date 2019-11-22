@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue中同时使用过渡和动画</title>
+    <script src='./vue.js'></script>
+    <link rel="stylesheet" type="text/css" href="./animate.css">
+    <style>
+            /* 显示动画 */
+            .fade-enter {
+                opacity: 0;
+            }
+            .fade-enter-active {
+                transition: opacity 3s;
+            }
+            /* 隐藏动画 */
+            .fade-leave-to {
+                opacity: 0;
+            }
+            .fade-leave-active {
+                transition: opacity 3s;
+            }
+        </style>
+</head>
+    <body>
+       
+        <div id="app">
+            <!-- animated 开头是规范 swing/shake 是具体效果名称，具体可以看官网 https://daneden.github.io/animate.css/
+            enter-active-class：显示动画
+            leave-active-class：隐藏动画
+            appear
+            appear-active-class="animated swing" : 刷新初次显示的动画效果
+            
+            enter-active-class="animated swing fade-enter-active" 
+            leave-active-class="animated shake fade-leave-active" 这样同时具有过度动画和animated(@keyframes动画的封装)动画
+
+             type="transition" 动画播放时长以transition为准（因为他们都有自己的播放时长，统一一下就行）
+            -->
+            <transition name="fade" 
+            type="transition"
+            enter-active-class="animated swing fade-enter-active" 
+            leave-active-class="animated shake fade-leave-active"
+            appear
+            appear-active-class="animated swing" 
+            >
+                <div v-if="show">hello workd</div>
+            </transition>
+            
+            <button @click="click">切换</button>
+              
+        </div>
+        
+
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    show : true
+                },
+                methods: {
+                    click: function() {
+                        this.show = !this.show;
+                    }
+
+                }
+        
+            })
+
+            /*
+            jq: m-模型层(接口交互))、v-视图层(html)、p-控制器(js代码)  mvp模式
+            
+            vue: m-(vue代码) v-(html) vm-(vue就是一个vm层，自动实现)) 即 mv vm模式
+
+            vue减少了dom的操作，可以减少代码量，编程的时候只关注数据层就好了
+
+
+
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            
+            */
+
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue中的使用animate.css 库</title>
+    <script src='./vue.js'></script>
+    <link rel="stylesheet" type="text/css" href="./animate.css">
+</head>
+    <body>
+       
+        <div id="app">
+             <!-- animated 开头是规范 swing/shake 是具体效果名称，具体可以看官网 https://daneden.github.io/animate.css/
+            enter-active-class：显示动画
+            leave-active-class：隐藏动画
+            
+            -->
+            <transition name="fade" enter-active-class="animated swing" leave-active-class="animated shake">
+                <div v-if="show">hello workd</div>
+            </transition>
+            
+            <button @click="click">切换</button>
+              
+        </div>
+        
+
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    show : true
+                },
+                methods: {
+                    click: function() {
+                        this.show = !this.show;
+                    }
+
+                }
+        
+            })
+
+            /*
+            jq: m-模型层(接口交互))、v-视图层(html)、p-控制器(js代码)  mvp模式
+            
+            vue: m-(vue代码) v-(html) vm-(vue就是一个vm层，自动实现)) 即 mv vm模式
+
+            vue减少了dom的操作，可以减少代码量，编程的时候只关注数据层就好了
+
+
+
+            v-model 双向数据绑定（只用于表单）
+
+            v-on 绑定事件 可用@代替
+
+            v-for 遍历数据
+            
+            */
+
+        </script>
+    </body>
+
+</html>
